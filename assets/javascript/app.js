@@ -20,6 +20,22 @@ $(document).ready(function() {
     var trainFrequency = 0;
     var trainArrival = "";
     var trainAway = "";
+
+    // Submit Button Click
+    $("#add-train").on("click", function(event) {
+      event.preventDefault();
+      // capture vaules input by user
+      trainName = $("#tname").val().trim();
+      trainDestination = $("#dest").val().trim();
+      trainFrequency = $("#trainTime").val().trim();
+
+      // Code for the push values to database
+      dataRef.ref().push({
+        trainName: trainName,
+        trainDestination: trainDestination,
+        trainFrequency: trainFrequency
+      });
+    });
     
 
     var currentTime = moment();
