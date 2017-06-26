@@ -18,7 +18,7 @@ $(document).ready(function() {
     var trainName = "";
     var trainDestination = "";
     var trainFirsttime = "";
-    var trainFrequency = 0;
+    var trainFrequency = "";
     var trainArrival = "";
     var trainAway = "";
 
@@ -32,82 +32,31 @@ $(document).ready(function() {
       trainDestination = $("#dest").val().trim();
       trainFirsttime = $("#trainInitial").val().trim();
       trainFrequency = $("#freq").val().trim();
-      console.log(trainName)
-      console.log(trainDestination)
-      console.log(trainFirsttime)
-      console.log(trainFrequency)
+     
 
 
     //var tFrequency = 3;
-    //var firstime = "05:00"; // Time is 3:30 AM
     var firstTimeConverted = moment(trainFirsttime, "hh:mm").subtract(1, "years"); // First Time (pushed back 1 year to make sure it comes before current time)
     var currentTime = moment(); // Difference between the times
     var diffTime = moment().diff(moment(firstTimeConverted), "minutes"); // Time apart (remainder)
     var tRemainder = diffTime % trainFrequency; 
-    var trainAway = trainFrequency - tRemainder; // Minute Until Train
-    var trainArrival = moment().add(trainAway, "minutes"); // Next Train
-
-     console.log()
-    
-    
-    
-    
-    console.log(firstTimeConverted);
-    // Current Time
-    
-    console.log("CURRENT TIME: " + moment(currentTime).format("hh:mm"));
-    
-    
-    console.log("DIFFERENCE IN TIME: " + diffTime);
-    
-    
-    console.log(tRemainder);
-    
-    
-    console.log("MINUTES TILL TRAIN: " + trainAway);
-    
-    
+    trainAway = trainFrequency - tRemainder; // Minute Until Train
+    trainArrival = moment().add(trainAway, "minutes"); // Next Train
+    nextTrain = moment(trainArrival).format("hh:mm");
     console.log("ARRIVAL TIME: " + moment(trainArrival).format("hh:mm"));
+   // console.log(trainArrival);
 
       // Code for the push values to database
       dataRef.ref().push({
         trainName: trainName,
         trainDestination: trainDestination,
         trainFirsttime: trainFirsttime,
-        trainFrequency: trainFrequency
+        trainFrequency: trainFrequency,
+        trainAway: trainAway,
+        nextTrain: nextTrain
+       // trainArrival: trainArrival
       });
     });
-    
-
-
-
-    // Assume the following situations.
-    // (TEST 1)
-    // First Train of the Day is 3:00 AM
-    // Assume Train comes every 3 minutes.
-    // Assume the current time is 3:16 AM....
-    // What time would the next train be...? (Use your brain first)
-    // It would be 3:18 -- 2 minutes away
-    // (TEST 2)
-    // First Train of the Day is 3:00 AM
-    // Assume Train comes every 7 minutes.
-    // Assume the current time is 3:16 AM....
-    // What time would the next train be...? (Use your brain first)
-    // It would be 3:21 -- 5 minutes away
-    // ==========================================================
-    // Solved Mathematically
-    // Test case 1:
-    // 16 - 00 = 16
-    // 16 % 3 = 1 (Modulus is the remainder)
-    // 3 - 1 = 2 minutes away
-    // 2 + 3:16 = 3:18
-    // Solved Mathematically
-    // Test case 2:
-    // 16 - 00 = 16
-    // 16 % 7 = 2 (Modulus is the remainder)
-    // 7 - 2 = 5 minutes away
-    // 5 + 3:16 = 3:21
-    // Assumptions
     
 
    
