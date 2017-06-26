@@ -62,7 +62,7 @@ $(document).ready(function() {
     $('#myTable tr:last').after('<tr class="child"><td>' + trainName + '<\/td><td>' + trainDestination + '<\/td><td>' + trainFrequency + '<\/td><td>' + nextTrain + '<\/td><td>' + trainAway + '<\/td></tr>');
     });
     
-
+    
    
 
 
