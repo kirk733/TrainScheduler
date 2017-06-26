@@ -43,8 +43,7 @@ $(document).ready(function() {
     trainAway = trainFrequency - tRemainder; // Minute Until Train
     trainArrival = moment().add(trainAway, "minutes"); // Next Train
     nextTrain = moment(trainArrival).format("hh:mm");
-    console.log("ARRIVAL TIME: " + moment(trainArrival).format("hh:mm"));
-   // console.log(trainArrival);
+   
 
       // Code for the push values to database
       dataRef.ref().push({
@@ -54,8 +53,13 @@ $(document).ready(function() {
         trainFrequency: trainFrequency,
         trainAway: trainAway,
         nextTrain: nextTrain
-       // trainArrival: trainArrival
+
+
       });
+
+     //Add row to table 
+
+    $('#myTable tr:last').after('<tr class="child"><td>' + trainName + '<\/td><td>' + trainDestination + '<\/td><td>' + trainFrequency + '<\/td><td>' + nextTrain + '<\/td><td>' + trainAway + '<\/td></tr>');
     });
     
 
